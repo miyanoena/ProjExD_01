@@ -7,6 +7,8 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("ex01/fig/pg_bg.jpg")#練習１
+    bg_imgs = [bg_img, pg.transform.flip(bg_img,True,False)]*2
+
     kk_img=pg.image.load("ex01/fig/3.png")
     kk_img=pg.transform.flip(kk_img, True, False)
     kk_imgs=[kk_img, pg.transform.rotozoom(kk_img, 10, 1.0)]
@@ -16,12 +18,14 @@ def main():
             if event.type == pg.QUIT: return
 
         x=tmr%1600
-        screen.blit(bg_img, [-x, 0])#練習４
-        screen.blit(bg_img,[1600-x,0])
-        screen.blit(kk_imgs[tmr%2],[300,200])
+        #screen.blit(bg_img, [-x, 0])#練習４
+        #screen.blit(bg_img,[1600-x,0])
+        for i in range(4):
+            screen.blit(bg_imgs[i], [1600*i-x, 0])
+        screen.blit(kk_imgs[tmr%100//50],[300,200])
         pg.display.update()
         tmr += 1        
-        clock.tick(10)
+        clock.tick(100)
 
 
 if __name__ == "__main__":
